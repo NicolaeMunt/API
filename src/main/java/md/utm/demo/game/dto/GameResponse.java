@@ -1,8 +1,11 @@
 package md.utm.demo.game.dto;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import md.utm.demo.game.Game;
 import md.utm.demo.game.Genre;
 
+@JsonRootName("game")
 public record GameResponse(
         String id,
         String title,
