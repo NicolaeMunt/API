@@ -17,6 +17,14 @@ public interface GameRepository extends MongoRepository<Game, String> {
 
     boolean existsByTitleIgnoreCaseAndDeveloperIgnoreCase(String title, String developer);
 
+    Optional<Game> findByIdAndDeletedAtIsNull(String id);
+
+    Page<Game> findByDeletedAtIsNull(Pageable pageable);
+
+    Page<Game> findByGenreAndDeletedAtIsNull(Genre genre, Pageable pageable);
+
+    boolean existsByTitleIgnoreCaseAndDeveloperIgnoreCaseAndDeletedAtIsNull(
+            String title, String developer);
     @Query("{ 'releaseYear': { $gte: ?0 }, 'genre': { $in: ?1 } }")
     Page<Game> findModernByGenres(int fromYear, List<Genre> genres, Pageable pageable);
 }

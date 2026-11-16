@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.Instant;
 
 @Document(collection = "games")
 @CompoundIndex(name = "uq_title_dev",
@@ -22,6 +23,11 @@ public class Game {
     private Genre genre;
 
     private int releaseYear;
+
+    private Instant deletedAt;
+
+    private Instant createdAt;
+    private Instant updatedAt;
 
     protected Game() {
         // required by Spring Data for document → object mapping
@@ -46,4 +52,7 @@ public class Game {
     public String getDeveloper() { return developer; }
     public Genre getGenre()      { return genre; }
     public int getReleaseYear()  { return releaseYear; }
+    public void softDelete() {
+        this.deletedAt = Instant.now();
+    }
 }
